@@ -22,3 +22,8 @@ select,
 textarea {
     max-width: 280px;
 }
+
+hr{
+    color: black;
+    font-size: 30px;
+}

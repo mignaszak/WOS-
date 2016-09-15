@@ -91,39 +91,45 @@ namespace WOS_.Helpers
             {
                 temp.Add(new HIndexTemp(num, articles.Where(x => x.NumOfCitations == num).Count()));
             }
-            temp = temp.OrderBy(x => x.originalNumer).ToList();
-            int hindex = temp[0].originalNumer;
+            temp = temp.OrderBy(x => x.numOfCitations).ToList();
+            int hindex = temp[0].numOfCitations;
             for (int i= 0; i < temp.Count;i++)
             {
                 var num = temp[i];
                 if (num.diff == 0)
                 {
-                    hindex = num.originalNumer;
+                    hindex = num.numOfCitations;
                     break;
                 }
                 else if (num.diff > 0)
                 {
-                    hindex = temp[i - 1].originalNumer;
+                    hindex = temp[i - 1].numOfCitations;
                     break;
-                    //if (hindex == num.originalNumer)
-                        //hindex = hindex + 0.5;
                 }
                 else if (i + 1 != temp.Count)
-                    hindex = temp[i + 1].originalNumer;
+                    hindex = temp[i + 1].numOfCitations;
             }
-
+            var artTemp = articles.OrderBy(x => x.NumOfCitations).ToList();
+            foreach (var art in artTemp)
+            {
+                if (art.NumOfCitations == hindex)
+                {
+                    articles.Where(x => x == art).FirstOrDefault().FirstNotInHIndex = true;
+                    break;
+                }
+            }
             return hindex;
         }
 
         public class HIndexTemp
         {
-            public int originalNumer { get; set; }
-            public int timesCited { get; set; }
+            public int numOfCitations { get; set; }
+            public int numOfArticles { get; set; }
             public int diff { get; set;  }
             public HIndexTemp(int o, int t)
             {
-                originalNumer = o;
-                timesCited = t;
+                numOfCitations = o;
+                numOfArticles = t;
                 diff = o - t;
             }
         

@@ -16,6 +16,7 @@ namespace WOS_.Models
         string _Pages;
         int _Year;
         int _NumOfCitations;
+        bool _LastInHIndex;
 
 
         public string Title
@@ -142,6 +143,21 @@ namespace WOS_.Models
                 _Authors, Publication, Volume.ToString(), Issue.ToString(), Pages, Year.ToString());
             }
         }
+
+        public bool FirstNotInHIndex
+        {
+            get
+            {
+                return _LastInHIndex;
+            }
+
+            set
+            {
+                _LastInHIndex = value;
+            }
+        }
+
+      
 
 
 

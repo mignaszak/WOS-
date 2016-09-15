@@ -32,6 +32,8 @@ namespace WOS_.Controllers
                 StatisticsHelper.CalculateStatistics(CurrentArticles);
             }
             List<ArticleModel> articles = new List<ArticleModel>();
+            foreach (var art in CurrentArticles)
+                art.FirstNotInHIndex = false;
             this.Session["CurrentSort"] = sortOrder;
             this.Session["CurrentAuthor"] = author;
             //StateValues.CurrentAuthor = author;
@@ -41,6 +43,14 @@ namespace WOS_.Controllers
             {
                 case "num_of_citations":
                     articles = CurrentArticles.OrderBy(s => s.NumOfCitations).ToList();
+                    for (int i = 0; i < articles.Count; i++)
+                    {
+                        if (articles[i].NumOfCitations >= StatisticsHelper.HIndex)
+                        {
+                            articles[i].FirstNotInHIndex = true;
+                            break;
+                        }
+                    }
                     break;
                 case "year":
                     articles = CurrentArticles.OrderBy(s => s.Year).ToList();
@@ -49,7 +59,15 @@ namespace WOS_.Controllers
                     articles = CurrentArticles.OrderByDescending(s => s.Year).ToList();
                     break;
                 default:
-                    articles = CurrentArticles.OrderByDescending(s => s.NumOfCitations).ToList();
+                    articles = CurrentArticles.OrderByDescending(s => s.NumOfCitations).ToList();                    
+                    for(int i =0;i<articles.Count;i++)
+                    {
+                        if (articles[i].NumOfCitations < StatisticsHelper.HIndex)
+                        {
+                            articles[i - 1].FirstNotInHIndex = true;
+                            break;
+                        }
+                    }
                     break;
             }
             ViewBag.Articles = articles;
