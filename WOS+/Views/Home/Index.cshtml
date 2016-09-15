@@ -1,0 +1,11 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+@using (Html.BeginForm("Index", "Articles", FormMethod.Get))
+{
+
+    <p>
+        Nazwa: @Html.TextBox("author") <br />
+        <input type="submit" value="Szukaj" />
+    </p>
+}
