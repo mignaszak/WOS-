@@ -4,8 +4,13 @@
 @using (Html.BeginForm("Index", "Articles", FormMethod.Get))
 {
 
-    <p>
-        Nazwa: @Html.TextBox("author") <br />
-        <input type="submit" value="Szukaj" />
-    </p>
+    <div style="text-align:center">
+        <p style="margin:10%">
+            Autor: @Html.TextBox("author")
+            <br />
+            <br />
+            <input type="submit" value="Szukaj" /> 
+        </p>
+    </div>
+
 }

@@ -24,7 +24,7 @@ namespace WOS_.Models
             get
             {
                 if (_Title == null || _Title == "")
-                    _Title = "ND";
+                    _Title = "ND*";
                 return _Title;
             }
 
@@ -52,7 +52,7 @@ namespace WOS_.Models
             get
             {
                 if (_Publication == null || _Publication == "")
-                    _Publication = "ND";
+                    _Publication = "ND*";
                 return _Publication;
             }
 
@@ -67,7 +67,7 @@ namespace WOS_.Models
             get
             {
                 if (_Volume == null || _Volume == "")
-                    _Volume = "ND";
+                    _Volume = "ND*";
                 return _Volume;
             }
 
@@ -82,7 +82,7 @@ namespace WOS_.Models
             get
             {
                 if (_Issue == null || _Issue == "")
-                    _Issue = "ND";
+                    _Issue = "ND*";
                 return _Issue;
             }
 
@@ -97,7 +97,7 @@ namespace WOS_.Models
             get
             {
                 if (_Pages == null || _Pages == "")
-                    _Pages = "ND";
+                    _Pages = "ND*";
                 return _Pages;
             }
 
@@ -157,7 +157,12 @@ namespace WOS_.Models
             }
         }
 
-      
+        public string YearToString()
+        {
+            if (this.Year == 0)
+                return "-";
+            return Year.ToString();
+        }  
 
 
 
@@ -177,4 +182,6 @@ namespace WOS_.Models
         //    return article;
         //}
     }
+
+
 }

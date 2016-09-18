@@ -64,7 +64,7 @@ namespace WOS_.Controllers
                     {
                         if (articles[i].NumOfCitations < StatisticsHelper.HIndex)
                         {
-                            articles[i - 1].FirstNotInHIndex = true;
+                            articles[i ].FirstNotInHIndex = true;
                             break;
                         }
                     }
