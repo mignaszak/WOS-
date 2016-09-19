@@ -1,0 +1,27 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@model IEnumerable<WOS_.Models.AuthorModel>
+@*@using WOS_.Extension;*@
+
+@{
+    ViewBag.Title = "Authors";
+}
+
+@if (ViewBag.Authors != null && ViewBag.Authors.Count > 0)
+{
+    <h2>Found authors:</h2>
+    <ul id="AuthorsList" class="list-group">
+       @foreach (var item in ViewBag.Authors as List<WOS_.Models.AuthorModel>)
+       {
+        <li class="list-group-item">
+            @Html.ActionLink(item.FullName ,"Index","Articles", new {  author=item.Id  },null)
+        </li>
+       }
+    </ul>
+}
+else
+{
+    <h2>No authors found</h2>
+}

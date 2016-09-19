@@ -150,15 +150,32 @@ namespace WOS_.Helpers
 
         List<string> GetElements(string html, string whitXPath, string greyXPath)
         {
-            HtmlDocument document = new HtmlDocument();
-            document.LoadHtml(html);
-            var node = document.DocumentNode.SelectNodes(whitXPath);
-            var white = node.ToList().Select(x => x.InnerText).ToList();
-            node = document.DocumentNode.SelectNodes(greyXPath);
-            var grey = node.ToList().Select(x => x.InnerText).ToList();
-            var list = ZipLists(white, grey);
+            try
+            {
+                List<string> white = new List<string>();
+                List<string> grey = new List<string>();
+                HtmlDocument document = new HtmlDocument();
+                document.LoadHtml(html);
 
-            return list;
+                var node = document.DocumentNode.SelectNodes(whitXPath);
+                //var whiteTemp = node.ToList();
+                if (node != null && node.Count() != 0)
+                    white = node.ToList().Select(x => x.InnerText).ToList();
+
+                node = document.DocumentNode.SelectNodes(greyXPath);
+                //var greyTemp = node.ToList();
+                if (node != null && node.Count() != 0)
+                    grey = node.ToList().Select(x => x.InnerText).ToList();
+
+                var list = ZipLists(white, grey);
+
+                return list;
+            }
+            catch (Exception e)
+            {
+
+                throw new Exception(string.Format("Error: {0}\r\n withXPath {1} greyXPath {2}", e.Message, whitXPath, greyXPath));
+            }
         }
 
         List<T> ZipLists<T>(List<T> list1, List<T> list2)

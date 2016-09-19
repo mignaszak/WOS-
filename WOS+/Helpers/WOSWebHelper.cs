@@ -18,6 +18,10 @@ namespace WOS_.Helpers
             var foundHtmls = ExecuteQuery(author);
             foreach (var html in foundHtmls)
             {
+                if(html == foundHtmls.Last())
+                {
+
+                }
                 var a = helper.ParseHTML(html);
                 articles.AddRange(a);
                 helper.startIndex += helper.count;
@@ -29,11 +33,14 @@ namespace WOS_.Helpers
         {
             List<string> htmls = new List<string>();
             //Testowe
-            foreach (var file in Directory.GetFiles(@"C:\Dokumenty\Magisterka\Mój projekt\downloaded pages"))
+            if (Properties.Settings.Default.test)
             {
-                htmls.Add(File.ReadAllText(file));
+                foreach (var file in Directory.GetFiles(Properties.Settings.Default.testFiles))
+                {
+                    htmls.Add(File.ReadAllText(file));
+                }
+                return htmls; 
             }
-            return htmls;
 
             string realQuery = GetProperQuery(query);
             HttpWebResponse response = null;
@@ -58,7 +65,7 @@ namespace WOS_.Helpers
             }
             int pagesCount = ParseHelper.GetPagesCount(str);
             htmls.Add(str);
-            //File.WriteAllText(@"C:\MIApps\downloaded pages\1.html", str);
+            File.WriteAllText(string.Format(@"{0}\01.html",Properties.Settings.Default.testFiles), str);// testowe
 
             //Getting next pages
             for (int i = 2; i <= pagesCount; i++)
@@ -74,7 +81,7 @@ namespace WOS_.Helpers
                 {
                     throw new Exception("Download page " + i.ToString() + " error. Ten tries without succes");
                 }
-                //File.WriteAllText(string.Format(@"C:\MIApps\downloaded pages\{0}.html", i.ToString()), str);
+                File.WriteAllText(string.Format(@"{0}\{1}.html", Properties.Settings.Default.testFiles, i.ToString("00")), str);
                 htmls.Add(str);
             }
             return htmls;

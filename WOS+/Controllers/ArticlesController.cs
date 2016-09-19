@@ -24,7 +24,11 @@ namespace WOS_.Controllers
         public ActionResult Index(string author, string sortOrder, int? page)
         {
             var curAuth = (string)this.Session["CurrentAuthor"];
-            if (author != curAuth || CurrentArticles == null)
+            if (author == null || author == "")
+            {
+                return View((new List<ArticleModel>()).ToPagedList(1, 1));
+            }
+            else if (author != curAuth)// || CurrentArticles == null)
             {
                 //nowy autor
                 //CurrentArticles = WOSApiHelper.GetArticles(author);
@@ -32,49 +36,53 @@ namespace WOS_.Controllers
                 StatisticsHelper.CalculateStatistics(CurrentArticles);
             }
             List<ArticleModel> articles = new List<ArticleModel>();
-            foreach (var art in CurrentArticles)
-                art.FirstNotInHIndex = false;
-            this.Session["CurrentSort"] = sortOrder;
-            this.Session["CurrentAuthor"] = author;
-            //StateValues.CurrentAuthor = author;
-            this.Session["CitationsSortParam"] = String.IsNullOrEmpty(sortOrder) ? "num_of_citations" : "";
-            this.Session["DateSortParm"] = sortOrder == "year" ? "year_desc" : "year";
-            switch (sortOrder)
+            if (CurrentArticles != null && CurrentArticles.Count != 0)
             {
-                case "num_of_citations":
-                    articles = CurrentArticles.OrderBy(s => s.NumOfCitations).ToList();
-                    for (int i = 0; i < articles.Count; i++)
-                    {
-                        if (articles[i].NumOfCitations >= StatisticsHelper.HIndex)
+                foreach (var art in CurrentArticles)
+                    art.FirstNotInHIndex = false;
+                this.Session["CurrentSort"] = sortOrder;
+                this.Session["CurrentAuthor"] = author;
+                //StateValues.CurrentAuthor = author;
+                this.Session["CitationsSortParam"] = String.IsNullOrEmpty(sortOrder) ? "num_of_citations" : "";
+                this.Session["DateSortParm"] = sortOrder == "year" ? "year_desc" : "year";
+                switch (sortOrder)
+                {
+                    case "num_of_citations":
+                        articles = CurrentArticles.OrderBy(s => s.NumOfCitations).ToList();
+                        for (int i = 0; i < articles.Count; i++)
                         {
-                            articles[i].FirstNotInHIndex = true;
-                            break;
+                            if (articles[i].NumOfCitations >= StatisticsHelper.HIndex)
+                            {
+                                articles[i].FirstNotInHIndex = true;
+                                break;
+                            }
                         }
-                    }
-                    break;
-                case "year":
-                    articles = CurrentArticles.OrderBy(s => s.Year).ToList();
-                    break;
-                case "year_desc":
-                    articles = CurrentArticles.OrderByDescending(s => s.Year).ToList();
-                    break;
-                default:
-                    articles = CurrentArticles.OrderByDescending(s => s.NumOfCitations).ToList();                    
-                    for(int i =0;i<articles.Count;i++)
-                    {
-                        if (articles[i].NumOfCitations < StatisticsHelper.HIndex)
+                        break;
+                    case "year":
+                        articles = CurrentArticles.OrderBy(s => s.Year).ToList();
+                        break;
+                    case "year_desc":
+                        articles = CurrentArticles.OrderByDescending(s => s.Year).ToList();
+                        break;
+                    default:
+                        articles = CurrentArticles.OrderByDescending(s => s.NumOfCitations).ToList();
+                        for (int i = 0; i < articles.Count; i++)
                         {
-                            articles[i ].FirstNotInHIndex = true;
-                            break;
+                            if (articles[i].NumOfCitations < StatisticsHelper.HIndex)
+                            {
+                                articles[i].FirstNotInHIndex = true;
+                                break;
+                            }
                         }
-                    }
-                    break;
-            }
-            ViewBag.Articles = articles;
+                        break;
+                }
+                ViewBag.Articles = articles;
 
-            int pageSize = 50;
-            int pageNumber = (page ?? 1);
-            return View(articles.ToPagedList(pageNumber, pageSize));
+                int pageSize = 50;
+                int pageNumber = (page ?? 1);
+                return View(articles.ToPagedList(pageNumber, pageSize));
+            }
+            return View(articles.ToPagedList(1,1));
 
             //return View(); 
         }
