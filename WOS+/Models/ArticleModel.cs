@@ -139,7 +139,7 @@ namespace WOS_.Models
             {
                 //return string.Format("BY: {0}\r\n{1} Volume: {2} Issue: {3} Pages: {4} Published: {5}",
                 //string.Join("; ", _Authors), Publication, Volume.ToString(), Issue.ToString(), Pages, Year.ToString());
-                return string.Format("{1} Volume: {2} Issue: {3} Pages: {4} Published: {5}",
+                return string.Format("  Volume: {2} Issue: {3} Pages: {4} Published: {5}",
                 _Authors, Publication, Volume.ToString(), Issue.ToString(), Pages, Year.ToString());
             }
         }

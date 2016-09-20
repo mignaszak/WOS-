@@ -28,13 +28,13 @@
             <th>
                 Information
             </th>
-            <th>
+            <th width="10%" style="text-align:center">
                 @Html.ActionLink("Year", "Index", new { sortOrder = this.Session["DateSortParm"], author = this.Session["CurrentAuthor"] })
             </th>
-            <th>
+            <th width="10%" style="text-align:center">
                 @Html.ActionLink("Citations", "Index", new { sortOrder = this.Session["CitationsSortParam"], author = this.Session["CurrentAuthor"] })
-            </th> 
-        </tr> 
+                </th>
+</tr> 
 
 @foreach (var item in Model)
 {
@@ -50,11 +50,11 @@
             @item.ArticleInfo
 
         </td>
-        <td>
+        <td width="10%" style="text-align:center">
             @item.YearToString()
 
         </td>
-        <td>
+        <td width="10%" style="text-align:center">
             @item.NumOfCitations
         </td>
     </tr>
@@ -71,11 +71,11 @@
             @item.ArticleInfo
 
         </td>
-        <td>
+        <td width="10%" style="text-align:center">
             @item.YearToString()
 
         </td>
-        <td>
+        <td width="10%" style="text-align:center">
             @item.NumOfCitations
         </td>
     </tr>

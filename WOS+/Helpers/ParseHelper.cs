@@ -37,6 +37,7 @@ namespace WOS_.Helpers
             publicationXPath = "//*[@id='cited_work_exp_{0}']/text()";
 
             titleXPath1 = "//*[@id='links_isi_product_{0}']/value/text()";
+            titleXPath1 = "//*[@id='cited_work_exp_{0}']";
             titleXPath2 = "//*[@id='cited_work_exp_{0}']/a/text()";
 
             yearXPathWhite = "//*[@class='citedRefTableRow1'][3]";
@@ -137,10 +138,16 @@ namespace WOS_.Helpers
                 var node = document.DocumentNode.SelectSingleNode(string.Format(titleXPath1, i + startIndex));
                 if (node == null)
                     node = document.DocumentNode.SelectSingleNode(string.Format(titleXPath2, i + startIndex));
+
+
                 if (node == null)
                     titles.Add("");
                 else
-                    titles.Add(node.InnerText);
+                {
+                    titles.Add(string.Join(" ", node.ChildNodes.Select(x => x.InnerText)));
+
+                    //titles.Add(node.InnerText);
+                }
 
                 // //*[@id="cited_work_exp_10"]/a/text()
             }
