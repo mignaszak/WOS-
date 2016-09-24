@@ -8,12 +8,12 @@ namespace WOS_.Helpers
 {
     public class StatisticsHelper
     {
-        static int _SumOfCitations;
-        static double _AverageNumOfCitations;
-        static int _HIndex;
-        static int _ItemsFound;
+        int _SumOfCitations;
+        double _AverageNumOfCitations;
+        int _HIndex;
+        int _ItemsFound;
 
-        public static int HIndex
+        public int HIndex
         {
             get
             {
@@ -26,7 +26,7 @@ namespace WOS_.Helpers
             }
         }
 
-        public static double AverageNumOfCitations
+        public double AverageNumOfCitations
         {
             get
             {
@@ -39,7 +39,7 @@ namespace WOS_.Helpers
             }
         }
 
-        public static int SumOfCitations
+        public int SumOfCitations
         {
             get
             {
@@ -52,7 +52,7 @@ namespace WOS_.Helpers
             }
         }
 
-        public static int ItemsFound
+        public int ItemsFound
         {
             get
             {
@@ -65,25 +65,25 @@ namespace WOS_.Helpers
             }
         }
 
-        public static void CalculateStatistics(List<ArticleModel> articles)
+        public void CalculateStatistics(List<ArticleItem> articles)
         {
             _ItemsFound = articles.Count;
-            _SumOfCitations = StatisticsHelper.CalcSumOfCitations(articles);
-            _AverageNumOfCitations = StatisticsHelper.CalcAverageCitations(articles);
-            _HIndex = StatisticsHelper.CalcHIndex(articles);
+            _SumOfCitations = CalcSumOfCitations(articles);
+            _AverageNumOfCitations = CalcAverageCitations(articles);
+            _HIndex = CalcHIndex(articles);
         }
 
-        private static int CalcSumOfCitations(List<ArticleModel> articles)
+        private int CalcSumOfCitations(List<ArticleItem> articles)
         {
             return articles.Select(x => x.NumOfCitations).Sum();
         }
 
-        private static double CalcAverageCitations(List<ArticleModel> articles)
+        private double CalcAverageCitations(List<ArticleItem> articles)
         {
             return articles.Select(x => x.NumOfCitations).Average();
         }
 
-        private static int CalcHIndex(List<ArticleModel> articles)
+        private int CalcHIndex(List<ArticleItem> articles)
         {
             List<int> uniqueCitations = articles.Select(x => x.NumOfCitations).Distinct().ToList();
             List<HIndexTemp> temp = new List<HIndexTemp>();

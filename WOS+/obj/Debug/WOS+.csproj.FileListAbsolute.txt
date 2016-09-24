@@ -225,3 +225,8 @@ C:\Dokumenty\Magisterka\Mój projekt\WOS-\WOS+\bin\Microsoft.Owin.Security.Twitt
 C:\Dokumenty\Magisterka\Mój projekt\WOS-\WOS+\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
 C:\Dokumenty\Magisterka\Mój projekt\WOS-\WOS+\obj\Debug\WOS+.dll
 C:\Dokumenty\Magisterka\Mój projekt\WOS-\WOS+\obj\Debug\WOS+.pdb
+C:\Dokumenty\Magisterka\Mój projekt\WOS-\WOS+\bin\Microsoft.AspNet.SignalR.Core.dll
+C:\Dokumenty\Magisterka\Mój projekt\WOS-\WOS+\bin\Microsoft.AspNet.SignalR.SystemWeb.dll
+C:\Dokumenty\Magisterka\Mój projekt\WOS-\WOS+\bin\Microsoft.AspNet.SignalR.Core.xml
+C:\Dokumenty\Magisterka\Mój projekt\WOS-\WOS+\bin\Microsoft.AspNet.SignalR.SystemWeb.xml
+C:\Dokumenty\Magisterka\Mój projekt\WOS-\WOS+\obj\Debug\WOS+.csprojResolveAssemblyReference.cache

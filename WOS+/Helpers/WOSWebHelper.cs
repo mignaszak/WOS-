@@ -5,15 +5,16 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Web;
+using System.Web.Mvc;
 using WOS_.Models;
 
 namespace WOS_.Helpers
 {
     public class WOSWebHelper
     {
-        public static List<ArticleModel> GetArticles(string author)
+        public static List<ArticleItem> GetArticles(string author)
         {
-            List<ArticleModel> articles = new List<ArticleModel>();
+            List<ArticleItem> articles = new List<ArticleItem>();
             ParseHelper helper = new ParseHelper();
             var foundHtmls = ExecuteQuery(author);
             foreach (var html in foundHtmls)
@@ -29,7 +30,7 @@ namespace WOS_.Helpers
             return articles;
         }
 
-        static List<string>  ExecuteQuery(string query)
+        public static List<string>  ExecuteQuery(string query)
         {
             List<string> htmls = new List<string>();
             //Testowe

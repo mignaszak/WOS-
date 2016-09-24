@@ -55,9 +55,9 @@ namespace WOS_.Helpers
             startIndex = 1;
         }
 
-        public List<ArticleModel> ParseHTML(string html)
+        public List<ArticleItem> ParseHTML(string html)
         {
-            List<ArticleModel> articles = new List<ArticleModel>();
+            List<ArticleItem> articles = new List<ArticleItem>();
             List<string> authors = GetAuthors(html);
             List<string> pubs = GetPublications(html);
             List<string> titles = GetTitles(html);
@@ -69,7 +69,7 @@ namespace WOS_.Helpers
             //&nbsp;
             for (int i = 0; i < count; i++)
             {
-                var art = new ArticleModel();
+                var art = new ArticleItem();
                 art.Authors = authors[i];
                 art.Publication = pubs[i];
                 art.Title = titles[i];

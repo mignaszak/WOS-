@@ -1,8 +1,7 @@
-﻿@*@model IEnumerable<WOS_.Models.ArticleModel>*@
-@*@using WOS_.Extension;*@
-@model PagedList.IPagedList<WOS_.Models.ArticleModel>
+﻿@model WOS_.Models.ArticleModel
 @using PagedList.Mvc;
-@using WOS_.Helpers
+@using PagedList;
+@using WOS_.Helpers;
 @using WOS_.Models;
 <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
 <link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
@@ -11,91 +10,12 @@
 @{
     ViewBag.Title = "Articles";
 }
-@if (Model != null && Model.Count != 0)
-{
-    <h2>Articles List</h2>
 
-<div id="statisticsDiv">
-    <p><b>Items found:</b> @StatisticsHelper.ItemsFound </p>
-    <p><b>Sum of the Times Cited:</b> @StatisticsHelper.SumOfCitations </p>
-    <p><b>Average Citations per Item:</b> @StatisticsHelper.AverageNumOfCitations </p>
-    <p><b>h-index:</b> @StatisticsHelper.HIndex </p>
+@*@Html.Partial("_ArticlesList",Model)*@
 
+<div class="articles"> 
+    <div class="partialContents" data-url="@Url.Action("articlesloading", "articles", new { sortOrder = Request.Params["sortOrder"], author = Request.Params["author"], page = Request.Params["page"] })" data-url="/articles/articlesloading?author=blazewicz+j">
+        <br /> 
+        <h4> <img src="~/Images/indicator.white.gif" />  Loading...</h4>
+    </div>
 </div>
-<p>
-    <table id="ArticlesList" class="table">
-        <tr>
-            <th>
-                Information
-            </th>
-            <th width="10%" style="text-align:center">
-                @Html.ActionLink("Year", "Index", new { sortOrder = this.Session["DateSortParm"], author = this.Session["CurrentAuthor"] })
-            </th>
-            <th width="10%" style="text-align:center">
-                @Html.ActionLink("Citations", "Index", new { sortOrder = this.Session["CitationsSortParam"], author = this.Session["CurrentAuthor"] })
-                </th>
-</tr> 
-
-@foreach (var item in Model)
-{
-    if (item.FirstNotInHIndex)
-    {
-    <tr style="border-top:5pt solid black">
-
-        <td>
-            <b>@item.Title</b>
-            <br />
-            @string.Join("; ", item.Authors)
-            <br />
-            @item.ArticleInfo
-
-        </td>
-        <td width="10%" style="text-align:center">
-            @item.YearToString()
-
-        </td>
-        <td width="10%" style="text-align:center">
-            @item.NumOfCitations
-        </td>
-    </tr>
-    }
-    else
-    {
-    <tr>
-
-        <td>
-            <b>@item.Title</b>
-            <br />
-            @string.Join("; ", item.Authors)
-            <br />
-            @item.ArticleInfo
-
-        </td>
-        <td width="10%" style="text-align:center">
-            @item.YearToString()
-
-        </td>
-        <td width="10%" style="text-align:center">
-            @item.NumOfCitations
-        </td>
-    </tr>
-    }
-
-}
-    </table>
-    *No Data
-
-    <br />
-    <br />
-    <br />
-    <hr />
-    
-    Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
-
-    @Html.PagedListPager(Model, page => Url.Action("Index", new { page, sortOrder = this.Session["CurrentSort"], author = this.Session["CurrentAuthor"] }))
-    </p>
-}
-else
-{
-    <h2>No items found</h2>
-}
