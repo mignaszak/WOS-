@@ -6,7 +6,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <TimeStampOfAssociatedLegacyPublishXmlFile />
-    <_PublishTargetUrl>C:\Dokumenty\Magisterka\Mój projekt\Publish 1.2</_PublishTargetUrl>
+    <_PublishTargetUrl>C:\Dokumenty\Magisterka\Mój projekt\Publish 1.31</_PublishTargetUrl>
   </PropertyGroup>
   <ItemGroup>
     <File Include="bin/Antlr3.Runtime.dll">
@@ -142,7 +142,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>09/20/2016 21:02:53</publishTime>
     </File>
     <File Include="bin/WOS+.dll">
-      <publishTime>09/24/2016 22:48:22</publishTime>
+      <publishTime>09/26/2016 20:51:00</publishTime>
     </File>
     <File Include="Content/bootstrap.css">
       <publishTime>09/20/2016 21:02:51</publishTime>
@@ -319,7 +319,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>09/05/2016 18:53:14</publishTime>
     </File>
     <File Include="Views/Shared/_ArticlesList.cshtml">
-      <publishTime>09/24/2016 13:42:58</publishTime>
+      <publishTime>09/26/2016 20:24:41</publishTime>
     </File>
     <File Include="Views/Shared/_Layout.cshtml">
       <publishTime>09/24/2016 13:58:31</publishTime>

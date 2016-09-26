@@ -8,7 +8,7 @@ using PagedList;
 namespace WOS_.Models
 {
     public class ArticleItem
-    {
+    { 
         string _Title;
         string _Authors;
         string _Publication;
@@ -156,7 +156,7 @@ namespace WOS_.Models
             {
                 _LastInHIndex = value;
             }
-        }
+        } 
 
         public string YearToString()
         {
@@ -186,6 +186,8 @@ namespace WOS_.Models
 
     public class ArticleModel
     {
+
+         public string Query { get; set; }
         public int PageSieze
         {
             get
@@ -230,5 +232,6 @@ namespace WOS_.Models
             _Statistics = new StatisticsHelper();
             _Articles = new List<ArticleItem>().ToPagedList(1, 1);
         }
+         
     }
 }

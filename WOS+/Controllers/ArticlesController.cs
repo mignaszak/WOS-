@@ -117,7 +117,7 @@ namespace WOS_.Controllers
                 //nowy autor
                 //CurrentArticles = WOSApiHelper.GetArticles(author);
                 //CurrentArticles = new ArticleModel();
-                CurrentArticles = GetArticles(author);
+                CurrentArticles = GetArticles(author); 
                 //CurrentArticles.Statistics.CalculateStatistics(CurrentArticles.Articles);
             }
             //ViewBag.LoadingInfo = "Loading...";
@@ -126,6 +126,7 @@ namespace WOS_.Controllers
             {
                 ArticleModel newArticles = new ArticleModel();
                 newArticles.Statistics.CalculateStatistics(CurrentArticles);
+                newArticles.Query = author;
                 foreach (var art in CurrentArticles)
                     art.FirstNotInHIndex = false;
                 this.Session["CurrentSort"] = sortOrder;
@@ -137,14 +138,14 @@ namespace WOS_.Controllers
                 {
                     case "num_of_citations":
                         articles = CurrentArticles.OrderBy(s => s.NumOfCitations).ToList();
-                        for (int i = 0; i < articles.Count; i++)
-                        {
-                            if (articles[i].NumOfCitations >= newArticles.Statistics.HIndex)
-                            {
-                                articles[i].FirstNotInHIndex = true;
-                                break;
-                            }
-                        }
+                        //for (int i = 0; i < articles.Count; i++)
+                        //{
+                        //    if (articles[i].NumOfCitations >= newArticles.Statistics.HIndex)
+                        //    {
+                        //        articles[i].FirstNotInHIndex = true;
+                        //        break;
+                        //    }
+                        //}
                         break;
                     case "year":
                         articles = CurrentArticles.OrderBy(s => s.Year).ToList();
@@ -156,14 +157,14 @@ namespace WOS_.Controllers
                         articles = CurrentArticles.OrderByDescending(s => s.NumOfCitations).ToList();
                         for (int i = 0; i < articles.Count; i++)
                         {
-                            if (articles[i].NumOfCitations < newArticles.Statistics.HIndex)
+                            if ((i+1) >  newArticles.Statistics.HIndex)
                             {
                                 articles[i].FirstNotInHIndex = true;
                                 break;
                             }
                         }
                         break;
-                }
+                } 
                 //ViewBag.Articles = articles;
                 int pageSize = 50;
                 int pageNumber = (page ?? 1);

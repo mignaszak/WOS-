@@ -83,7 +83,7 @@ namespace WOS_.Helpers
             return articles.Select(x => x.NumOfCitations).Average();
         }
 
-        private int CalcHIndex(List<ArticleItem> articles)
+        private int CalcHIndex2(List<ArticleItem> articles)
         {
             List<int> uniqueCitations = articles.Select(x => x.NumOfCitations).Distinct().ToList();
             List<HIndexTemp> temp = new List<HIndexTemp>();
@@ -93,7 +93,7 @@ namespace WOS_.Helpers
             }
             temp = temp.OrderBy(x => x.numOfCitations).ToList();
             int hindex = temp[0].numOfCitations;
-            for (int i= 0; i < temp.Count;i++)
+            for (int i = 0; i < temp.Count; i++)
             {
                 var num = temp[i];
                 if (num.diff == 0)
@@ -117,6 +117,20 @@ namespace WOS_.Helpers
                     articles.Where(x => x == art).FirstOrDefault().FirstNotInHIndex = true;
                     break;
                 }
+            }
+            return hindex;
+        }
+
+        private int CalcHIndex(List<ArticleItem> articles)
+        {
+            int hindex = 0;
+            articles = articles.OrderByDescending(x => x.NumOfCitations).ToList();
+            for(int i = 0; i < articles.Count; i++)
+            {
+                if (articles[i].NumOfCitations >= (i + 1))
+                    hindex = i + 1;
+                else
+                    break;
             }
             return hindex;
         }
