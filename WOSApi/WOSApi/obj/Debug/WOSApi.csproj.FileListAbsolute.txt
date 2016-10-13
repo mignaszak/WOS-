@@ -1,0 +1,9 @@
+C:\Dokumenty\Magisterka\Mój projekt\WOSApi\WOSApi\bin\Debug\WOSApi.exe.config
+C:\Dokumenty\Magisterka\Mój projekt\WOSApi\WOSApi\bin\Debug\WOSApi.exe
+C:\Dokumenty\Magisterka\Mój projekt\WOSApi\WOSApi\bin\Debug\WOSApi.pdb
+C:\Dokumenty\Magisterka\Mój projekt\WOSApi\WOSApi\obj\Debug\WOSApi.csprojResolveAssemblyReference.cache
+C:\Dokumenty\Magisterka\Mój projekt\WOSApi\WOSApi\obj\Debug\WOSApi.Properties.Resources.resources
+C:\Dokumenty\Magisterka\Mój projekt\WOSApi\WOSApi\obj\Debug\WOSApi.csproj.GenerateResource.Cache
+C:\Dokumenty\Magisterka\Mój projekt\WOSApi\WOSApi\obj\Debug\WOSApi.exe
+C:\Dokumenty\Magisterka\Mój projekt\WOSApi\WOSApi\obj\Debug\WOSApi.pdb
+C:\Dokumenty\Magisterka\Mój projekt\WOSApi\WOSApi\obj\Debug\WOSApi.Form1.resources
