@@ -8,59 +8,53 @@
 
 @if (Model != null && Model.Articles.Count != 0)
 {
-
-@Html.Partial("_Statistics", Model.Statistics)
-<p>
-    <table id="ArticlesList" class="table">
-        <tr>
-            <th width="5%" style="text-align:center">
-                No.
-            </th>
-            <th>
-                Information
-            </th>
-            <th width="10%" style="text-align:center">
-                @Html.ActionLink("Year", "Index", new { sortOrder = this.Session["DateSortParm"], author = this.Session["CurrentAuthor"] })
-            </th>
-            <th width="10%" style="text-align:center">
-                @Html.ActionLink("Citations", "Index", new { sortOrder = this.Session["CitationsSortParam"], author = this.Session["CurrentAuthor"] })
-            </th>
-        </tr>
+    @Html.Partial("_Statistics", Model.Statistics)
+    <p>
+        <table id="ArticlesList" class="table">
+            <tr>
+                <th width="5%" style="text-align:center">
+                    No.
+                </th>
+                <th>
+                    Information
+                </th>
+                <th width="10%" style="text-align:center">
+                    @Html.ActionLink("Year", "Index", new { sortOrder = this.Session["DateSortParm"], author = this.Session["CurrentAuthor"] })
+                </th>
+                <th width="10%" style="text-align:center">
+                    @Html.ActionLink("Citations", "Index", new { sortOrder = this.Session["CitationsSortParam"], author = this.Session["CurrentAuthor"] })
+                </th>
+            </tr>
          
-@for(int i =0;i<Model.Articles.Count;i++)
-{
-    var item = Model.Articles[i];
-    if (item.FirstNotInHIndex)
-    {
-                <tr style="border-top:5pt solid black">
-
-                    <td width="5%" style="text-align:center"> 
-                                                @(i +1+ (Model.Articles.PageNumber - 1) * Model.Articles.PageSize)
-                    </td>
-                    <td>
-                        <b>@item.Title</b>
-                        <br />
-                        @string.Join("; ", item.Authors)
-                        <br />
-                        @item.ArticleInfo
-
-                    </td>
-                    <td width="10%" style="text-align:center">
-                        @item.YearToString()
-
-                    </td>
-                    <td width="10%" style="text-align:center">
-                        @item.NumOfCitations
-                    </td>
-                </tr>
-            }
-            else
+            @for(int i =0;i<Model.Articles.Count;i++)
             {
-                <tr>
-
+                var item = Model.Articles[i];
+                if (item.FirstNotInHIndex)
+                {
+                    <tr style="border-top:5pt solid black">
+                        <td width="5%" style="text-align:center"> 
+                            @(i +1+ (Model.Articles.PageNumber - 1) * Model.Articles.PageSize)
+                        </td>
+                        <td>
+                            <b>@item.Title</b>
+                            <br />
+                            @string.Join("; ", item.Authors)
+                            <br />
+                            @item.ArticleInfo
+                        </td>
+                        <td width="10%" style="text-align:center">
+                            @item.YearToString()
+                        </td>
+                        <td width="10%" style="text-align:center">
+                            @item.NumOfCitations
+                        </td>
+                    </tr>
+                }
+                else
+                {
+                    <tr>
                     <td width="5%" style="text-align:center"> 
-                                                @(i +1+ (Model.Articles.PageNumber - 1) * Model.Articles.PageSize)
-
+                        @(i +1+ (Model.Articles.PageNumber - 1) * Model.Articles.PageSize)
                     </td>
                     <td>
                         <b>@item.Title</b>
@@ -68,33 +62,27 @@
                         @string.Join("; ", item.Authors)
                         <br />
                         @item.ArticleInfo
-
                     </td>
                     <td width="10%" style="text-align:center">
                         @item.YearToString()
-
                     </td>
                     <td width="10%" style="text-align:center">
                         @item.NumOfCitations
                     </td>
-                </tr>
+                    </tr>
+                }
             }
-
-        }
-    </table>
-    *No Data
-
-    <br />
-    <br />
-    <br />
-    <hr />
-
-    Page @(Model.Articles.PageCount < Model.Articles.PageNumber ? 0 : Model.Articles.PageNumber) of @Model.Articles.PageCount
-
-    @Html.PagedListPager(Model.Articles, page => Url.Action("Index", new { page, sortOrder = this.Session["CurrentSort"], author = this.Session["CurrentAuthor"] }))
+        </table>
+        *No Data
+        <br />
+        <br />
+        <br />
+        <hr />
+        Page @(Model.Articles.PageCount < Model.Articles.PageNumber ? 0 : Model.Articles.PageNumber) of @Model.Articles.PageCount
+        @Html.PagedListPager(Model.Articles, page => Url.Action("Index", new { page, sortOrder = this.Session["CurrentSort"], author = this.Session["CurrentAuthor"] }))
     </p>
-    }
-    else
-    {
+}
+else
+{
     <h2>No items found</h2>
-    }
+}

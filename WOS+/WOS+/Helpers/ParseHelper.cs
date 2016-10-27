@@ -26,7 +26,6 @@ namespace WOS_.Helpers
         string citationsXPathGrey;
         public int startIndex;
         public int count;
-
         static string pagesCountXPath = "//*[@id='pageCount.top']";
 
         public ParseHelper()
@@ -51,6 +50,7 @@ namespace WOS_.Helpers
             pageXPathGrey = "//*[@class='citedRefTableRow2'][6]";
             citationsXPathWhite = "//*[@class='citedRefTableRow1'][8]";
             citationsXPathGrey = "//*[@class='citedRefTableRow2'][8]";
+            
 
             startIndex = 1;
         }
@@ -66,7 +66,7 @@ namespace WOS_.Helpers
             List<string> issues = GetElements(html, issueXPathWhite, issueXPathGrey);
             List<string> page = GetElements(html, pageXPathWhite, pageXPathGrey);
             List<string> citations = GetElements(html, citationsXPathWhite, citationsXPathGrey);
-            //&nbsp;
+
             for (int i = 0; i < count; i++)
             {
                 var art = new ArticleItem();
@@ -90,10 +90,9 @@ namespace WOS_.Helpers
             int authorCount = 0;
             HtmlNode node = null;
             document.LoadHtml(html);
-            var asd = document.DocumentNode.SelectNodes("//*[@class='citedRefTableRow1'][1]");
             do
             {
-                node = document.DocumentNode.SelectSingleNode(string.Format(authorsExpXPath, startIndex + authorCount));//.FirstOrDefault();
+                node = document.DocumentNode.SelectSingleNode(string.Format(authorsExpXPath, startIndex + authorCount));
                 if (node == null)
                     node = document.DocumentNode.SelectSingleNode(string.Format(authorsAbrXPath, startIndex + authorCount));
                 if (node == null)
@@ -112,18 +111,11 @@ namespace WOS_.Helpers
             List<string> elems = new List<string>();
             for (int i = 0; i < count; i++)
             {
-                if (i == 51)
-                {
-
-                }
-                var node = document.DocumentNode.SelectSingleNode(string.Format(publicationXPath, i + startIndex));//.FirstOrDefault(); 
+                var node = document.DocumentNode.SelectSingleNode(string.Format(publicationXPath, i + startIndex)); 
                 if (node == null)
                     elems.Add("");
                 else
                     elems.Add(node.InnerText);
-
-
-                // //*[@id="cited_work_exp_10"]/a/text()
             }
             return elems;
         }
@@ -138,23 +130,16 @@ namespace WOS_.Helpers
                 var node = document.DocumentNode.SelectSingleNode(string.Format(titleXPath1, i + startIndex));
                 if (node == null)
                     node = document.DocumentNode.SelectSingleNode(string.Format(titleXPath2, i + startIndex));
-
-
                 if (node == null)
                     titles.Add("");
                 else
                 {
                     titles.Add(string.Join(" ", node.ChildNodes.Select(x => x.InnerText)));
-
-                    //titles.Add(node.InnerText);
                 }
-
-                // //*[@id="cited_work_exp_10"]/a/text()
             }
             return titles;
         }
-
-
+        
         List<string> GetElements(string html, string whitXPath, string greyXPath)
         {
             try
@@ -165,12 +150,10 @@ namespace WOS_.Helpers
                 document.LoadHtml(html);
 
                 var node = document.DocumentNode.SelectNodes(whitXPath);
-                //var whiteTemp = node.ToList();
                 if (node != null && node.Count() != 0)
                     white = node.ToList().Select(x => x.InnerText).ToList();
 
                 node = document.DocumentNode.SelectNodes(greyXPath);
-                //var greyTemp = node.ToList();
                 if (node != null && node.Count() != 0)
                     grey = node.ToList().Select(x => x.InnerText).ToList();
 

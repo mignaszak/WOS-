@@ -1,7 +1,6 @@
 ﻿@model WOS_.Models.ArticleModel
 @using PagedList.Mvc;
 @using PagedList;
-@using WOS_.Helpers;
 @using WOS_.Models;
 <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
 <link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
@@ -11,10 +10,8 @@
     ViewBag.Title = "Articles";
 }
 
-@*@Html.Partial("_ArticlesList",Model)*@
-
 <div class="articles"> 
-    <div class="partialContents" data-url="@Url.Action("articlesloading", "articles", new { sortOrder = Request.Params["sortOrder"], author = Request.Params["author"], page = Request.Params["page"] })" data-url="/articles/articlesloading?author=blazewicz+j">
+    <div class="partialContents" data-url="@Url.Action("articlesloading", "articles", new { sortOrder = Request.Params["sortOrder"], author = Request.Params["author"], page = Request.Params["page"] })">
         <br /> 
         <h4> <img src="~/Images/indicator.white.gif" />  Loading...</h4>
     </div>

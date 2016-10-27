@@ -82,45 +82,7 @@ namespace WOS_.Helpers
         {
             return articles.Select(x => x.NumOfCitations).Average();
         }
-
-        private int CalcHIndex2(List<ArticleItem> articles)
-        {
-            List<int> uniqueCitations = articles.Select(x => x.NumOfCitations).Distinct().ToList();
-            List<HIndexTemp> temp = new List<HIndexTemp>();
-            foreach (var num in uniqueCitations)
-            {
-                temp.Add(new HIndexTemp(num, articles.Where(x => x.NumOfCitations == num).Count()));
-            }
-            temp = temp.OrderBy(x => x.numOfCitations).ToList();
-            int hindex = temp[0].numOfCitations;
-            for (int i = 0; i < temp.Count; i++)
-            {
-                var num = temp[i];
-                if (num.diff == 0)
-                {
-                    hindex = num.numOfCitations;
-                    break;
-                }
-                else if (num.diff > 0)
-                {
-                    hindex = temp[i - 1].numOfCitations;
-                    break;
-                }
-                else if (i + 1 != temp.Count)
-                    hindex = temp[i + 1].numOfCitations;
-            }
-            var artTemp = articles.OrderBy(x => x.NumOfCitations).ToList();
-            foreach (var art in artTemp)
-            {
-                if (art.NumOfCitations == hindex)
-                {
-                    articles.Where(x => x == art).FirstOrDefault().FirstNotInHIndex = true;
-                    break;
-                }
-            }
-            return hindex;
-        }
-
+        
         private int CalcHIndex(List<ArticleItem> articles)
         {
             int hindex = 0;
@@ -133,20 +95,6 @@ namespace WOS_.Helpers
                     break;
             }
             return hindex;
-        }
-
-        public class HIndexTemp
-        {
-            public int numOfCitations { get; set; }
-            public int numOfArticles { get; set; }
-            public int diff { get; set;  }
-            public HIndexTemp(int o, int t)
-            {
-                numOfCitations = o;
-                numOfArticles = t;
-                diff = o - t;
-            }
-        
         }
     }
 }
